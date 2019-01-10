@@ -2,14 +2,6 @@
 
 class Controller_User extends Controller_Template
 {
-
-    public function action_index()
-    {
-        $data["subnav"] = array('index' => 'active');
-        $this->template->title = 'UMS &raquo; User';
-        $this->template->content = View::forge('user/index', $data);
-    }
-
     public function get_add()
     {
         $data["subnav"] = array('btn' => 'btn btn-danger');
@@ -32,4 +24,12 @@ class Controller_User extends Controller_Template
             Response::redirect('user/index');
         }
     }
+	public function action_index()
+	{
+	    $users = Model_User::find('all');
+		$data["subnav"] = array('index'=> 'btn btn-warning');
+		$data["users"] = $users;
+		$this->template->title = 'UMS &raquo; User';
+		$this->template->content = View::forge('user/index', $data);
+	}
 }
