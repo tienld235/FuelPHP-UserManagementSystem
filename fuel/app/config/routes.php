@@ -5,4 +5,5 @@ return array(
 	
 	'hello(/:name)?' => array('welcome/hello', 'name' => 'hello'),
     'users/add' => array('user/add', 'name' => "add_user"),
+    'users/edit(/:id)?'=> array('user/edit', 'name' => 'edit_user'),
 );

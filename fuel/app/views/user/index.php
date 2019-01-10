@@ -20,7 +20,7 @@
                 <td><?= $user->email ?></td>
                 <td><?= $user->address ?></td>
                 <td>
-                    <a href="#" class="btn btn-success">Edit</a>
+                    <?php echo Html::anchor('user/edit/'.$user->id, 'Edit', array('class' => 'btn btn-success')); ?>
                     <a href="#" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
