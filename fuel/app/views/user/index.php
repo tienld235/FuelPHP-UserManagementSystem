@@ -20,8 +20,8 @@
                 <td><?= $user->email ?></td>
                 <td><?= $user->address ?></td>
                 <td>
-                    <?php echo Html::anchor('user/edit/'.$user->id, 'Edit', array('class' => 'btn btn-success')); ?>
-                    <a href="#" class="btn btn-danger">Delete</a>
+                    <?php echo Html::anchor('user/edit/' . $user->id, 'Edit', array('class' => 'btn btn-success')); ?>
+                    <?php echo Html::anchor('user/delete/' . $user->id, 'Delete', array('class' => 'btn btn-danger', 'onclick' => "return confirm('Are you sure to delete " . $user->name . "?');")); ?>
                 </td>
             </tr>
         <?php } ?>

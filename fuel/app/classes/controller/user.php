@@ -51,10 +51,19 @@ class Controller_User extends Controller_Template
         $user->address = Input::post("user_addr");
         if ($user->save()) {
             Session::set_flash('success', "Update user successfully!");
-            Response::redirect('user/index');
         } else {
             Session::set_flash('error', "Fail to update user!");
-            Response::redirect('user/index');
         }
+        Response::redirect('user/index');
+    }
+
+    public function action_delete($id){
+        $user = Model_User::find($id);
+        if($user->delete()){
+            Session::set_flash('success', "Delete user successfully!");
+        }else{
+            Session::set_flash('error', "Fail to delete user!");
+        }
+        Response::redirect('user/index');
     }
 }
