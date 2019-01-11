@@ -37,13 +37,18 @@ class Controller_User extends Controller_Template
     public function get_edit($id)
     {
         $user = Model_User::find($id);
-        $data["subnav"] = array('btn' => 'btn btn-danger');
-        $data["user"] = $user;
-        $this->template->title = "UMS &raquo; $user->name";
-        $this->template->content = View::forge('user/edit', $data);
+        if ($user == null) {
+            return Response::forge(Presenter::forge('welcome/404'), 404);
+        } else {
+            $data["subnav"] = array('btn' => 'btn btn-danger');
+            $data["user"] = $user;
+            $this->template->title = "UMS &raquo; $user->name";
+            $this->template->content = View::forge('user/edit', $data);
+        }
     }
 
-    public function post_edit($id){
+    public function post_edit($id)
+    {
         $user = Model_User::find($id);
         $user->name = Input::post("user_name");
         $user->phone = Input::post("user_phone");
@@ -57,13 +62,18 @@ class Controller_User extends Controller_Template
         Response::redirect('user/index');
     }
 
-    public function action_delete($id){
+    public function action_delete($id)
+    {
         $user = Model_User::find($id);
-        if($user->delete()){
-            Session::set_flash('success', "Delete user successfully!");
-        }else{
-            Session::set_flash('error', "Fail to delete user!");
+        if ($user == null) {
+            return Response::forge(Presenter::forge('welcome/404'), 404);
+        } else {
+            if ($user->delete()) {
+                Session::set_flash('success', "Delete user successfully!");
+            } else {
+                Session::set_flash('error', "Fail to delete user!");
+            }
+            Response::redirect('user/index');
         }
-        Response::redirect('user/index');
     }
 }
